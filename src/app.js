@@ -1,5 +1,7 @@
 import express from "express";
+import conectaDB from "./config/dbConnect.js";
 
+await conectaDB();
 const app = express();
 app.use(express.json());
 
