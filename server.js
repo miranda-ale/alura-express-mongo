@@ -1,10 +1,8 @@
-// import http from 'http';
+import "dotenv/config";
 import app from './src/app.js';
 
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => {
-    console.log(`Servidor escutando na Porta ${PORT} \nhttp://localhost:${PORT}`)
+app.listen(process.env.PORT, () => {
+    console.log(`Servidor escutando na Porta ${process.env.PORT} \nhttp://localhost:${process.env.PORT}`)
 });
 
 

@@ -1,0 +1,112 @@
+const livros = [
+    {
+        id: 1,
+        titulo: "O Senhor dos Anéis: A Sociedade do Anel",
+        autor: "J.R.R. Tolkien",
+        ano: 1954,
+        paginas: 423,
+        editora: "Allen & Unwin"
+    },
+    {
+        id: 2,
+        titulo: "O Senhor dos Anéis: As Duas Torres",
+        autor: "J.R.R. Tolkien",
+        ano: 1954,
+        paginas: 352,
+        editora: "Allen & Unwin"
+    },
+    {
+        id: 3,
+        titulo: "O Senhor dos Anéis: O Retorno do Rei",
+        autor: "J.R.R. Tolkien",
+        ano: 1955,
+        paginas: 416,
+        editora: "Allen & Unwin"
+    },
+    {
+        id: 4,
+        titulo: "O Hobbit",
+        autor: "J.R.R. Tolkien",
+        ano: 1937,
+        paginas: 310,
+        editora: "George Allen & Unwin"
+    },
+    {
+        id: 5,
+        titulo: "Silmarillion",
+        autor: "J.R.R. Tolkien",
+        ano: 1977,
+        paginas: 365,
+        editora: "George Allen & Unwin"
+    },
+    {
+        id: 6,
+        titulo: "Contos Inacabados",
+        autor: "J.R.R. Tolkien",
+        ano: 1980,
+        paginas: 472,
+        editora: "George Allen & Unwin"
+    },
+    {
+        id: 7,
+        titulo: "Os Filhos de Húrin",
+        autor: "J.R.R. Tolkien",
+        ano: 2007,
+        paginas: 313,
+        editora: "HarperCollins"
+    },
+    {
+        id: 8,
+        titulo: "Beren e Lúthien",
+        autor: "J.R.R. Tolkien",
+        ano: 2017,
+        paginas: 304,
+        editora: "HarperCollins"
+    },
+    {
+        id: 9,
+        titulo: "A Queda de Gondolin",
+        autor: "J.R.R. Tolkien",
+        ano: 2018,
+        paginas: 304,
+        editora: "HarperCollins"
+    },
+    {
+        id: 10,
+        titulo: "A História de Kullervo",
+        autor: "J.R.R. Tolkien",
+        ano: 2015,
+        paginas: 192,
+        editora: "HarperCollins"
+    },
+    {
+        id: 11,
+        titulo: "A Lenda de Sigurd e Gudrún",
+        autor: "J.R.R. Tolkien",
+        ano: 2009,
+        paginas: 384,
+        editora: "HarperCollins"
+    },
+    {
+        id: 12,
+        titulo: "A Balada de Aotrou e Itroun",
+        autor: "J.R.R. Tolkien",
+        ano: 2016,
+        paginas: 128,
+        editora: "HarperCollins"
+    },
+    {
+        id: 13,
+        titulo: "A Última Canção de Bilbo",
+        autor: "J.R.R. Tolkien",
+        ano: 1990,
+        paginas: 32,
+        editora: "HarperCollins"
+    },
+
+// Localiza um livro pela ID
+function buscaLivro(id) {
+  return livros.findIndex((livro) => {
+    return livro.id === Number(id);
+  });
+}

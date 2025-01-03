@@ -7,75 +7,14 @@ await conectaDB();
 const app = express();
 app.use(express.json());
 
-const livros = [
-    {
-        id: 1,
-        titulo: "O Senhor dos Anéis: A Sociedade do Anel",
-    },
-    {
-        id: 2,
-        titulo: "O Senhor dos Anéis: As Duas Torres",
-    },
-    {
-        id: 3,
-        titulo: "O Senhor dos Anéis: O Retorno do Rei",
-    },
-    {
-        id: 4,
-        titulo: "O Hobbit",
-    },
-    {
-        id: 5,
-        titulo: "Silmarillion",
-    },
-    {
-        id: 6,
-        titulo: "Contos Inacabados",
-    },
-    {
-        id: 7,
-        titulo: "Os Filhos de Húrin",
-    },
-    {
-        id: 8,
-        titulo: "Beren e Lúthien",
-    },
-    {
-        id: 9,
-        titulo: "A Queda de Gondolin",
-    },
-    {
-        id: 10,
-        titulo: "A História de Kullervo",
-    },
-    {
-        id: 11,
-        titulo: "A Lenda de Sigurd e Gudrún",
-    },
-    {
-        id: 12,
-        titulo: "A Balada de Aotrou e Itroun",
-    },
-    {
-        id: 13,
-        titulo: "A Última Canção de Bilbo",
-    },
-];
-
-// Localiza um livro pela ID
-function buscaLivro(id) {
-  return livros.findIndex((livro) => {
-    return livro.id === Number(id);
-  });
-}
-
 app.get("/", (req, res) => {
   res.status(200).send("Curso de Node.js");
 });
 
 // Lista geral de livros
-app.get("/livros", (req, res) => {
-  res.status(200).json(livros);
+app.get("/livros", async (req, res) => {
+  const listaLivros = await livro.find({});
+  res.status(200).json(listaLivros);
 });
 
 // Busca livro por ID

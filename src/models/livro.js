@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Interface de relacionamento com o Atlas
 const livroSchema = new mongoose.Schema({
     id: { type: mongoose.Schema.Types.ObjectId },
     titulo: { type: String, required: true },

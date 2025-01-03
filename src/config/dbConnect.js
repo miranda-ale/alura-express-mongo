@@ -1,14 +1,9 @@
-import mongoose, { mongo } from "mongoose";
-import dotenv from "dotenv";
-
-// Permite a utilização das variáveis de ambiente
-dotenv.config(); 
-const env = process.env;
+import mongoose from "mongoose";
 
 async function conectaDB() {
   try {
     // Conecta ao Banco da Dados
-    const uri = `mongodb+srv://${env.DB_USERNAME}:${env.DB_PASSWORD}@${env.DB_HOST}/${env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
+    const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority&appName=Cluster0`;
     await mongoose.connect(uri);
     
     // Informa a conexão inicial
@@ -23,7 +18,7 @@ async function conectaDB() {
   // Monitora a conexão após a conexão inicial
   mongoose.connection.on('erro', (erro) => {
     console.error("Erro de conexão ao banco de dados: " + erro);
-  })
+  });
 
 };
 
