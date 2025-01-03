@@ -1,5 +1,7 @@
 import express from "express";
 import conectaDB from "./config/dbConnect.js";
+import livro from "./models/livro.js";
+
 
 await conectaDB();
 const app = express();
