@@ -1,3 +1,4 @@
+import { autorModel } from "../models/AutorModel.js";
 import livroModel from "../models/livroModel.js";
 
 class LivroController {
@@ -9,8 +10,8 @@ class LivroController {
       res.status(500).json({
         message: `${error.message} - Falha na requisição!`,
       });
-    };
-  };
+    }
+  }
 
   static async listarLivroPorId(req, res) {
     try {
@@ -23,22 +24,29 @@ class LivroController {
       res.status(500).json({
         message: `${error.message} - Falha ao buscar livro!`,
       });
-    };
-  };
+    }
+  }
 
   static async criarLivro(req, res) {
+    const novoLivro = req.body;
+
     try {
-      const novoLivro = await livroModel.create(req.body);
+      const autorEncontrado = await autorModel.findById(novoLivro.autor);
+      const livroCompleto = {
+        ...novoLivro,
+        autor: { ...autorEncontrado._doc },
+      };
+      const livroCriado = await livroModel.create(livroCompleto);
       res.status(201).json({
         message: "Livro criado com sucesso!",
-        livro: novoLivro,
+        livro: livroCriado,
       });
     } catch (error) {
       res.status(500).json({
         message: `${error.message} - Falha ao criar livro!`,
       });
-    };
-  };
+    }
+  }
 
   static async atualizarLivro(req, res) {
     try {
@@ -50,8 +58,8 @@ class LivroController {
       res.status(500).json({
         message: `${error.message} - Falha ao atualizar o livro!`,
       });
-    };
-  };
+    }
+  }
 
   static async excluirLivro(req, res) {
     try {
@@ -63,8 +71,25 @@ class LivroController {
       res.status(500).json({
         message: `${error.message} - Falha na exclusão do livro!`,
       });
+    }
+  }
+
+  static async listarLivrosPorEditora(req, res) {
+    const editora = req.query.editora;
+    try {
+      const livrosPorEditora = await livroModel.find({ editora: editora });
+      res
+      .status(200)
+      .json({
+        message: `Livro(s) localizado(s)`,
+        livro: [livrosPorEditora]
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: `${error.message} - Falha na exclusão do livro!`,
+      });
     };
   };
-}
+};
 
 export default LivroController;
