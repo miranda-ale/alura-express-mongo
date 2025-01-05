@@ -16,93 +16,82 @@ const livros = [
         editora: "Allen & Unwin"
     },
     {
-        id: 3,
-        titulo: "O Senhor dos Anéis: O Retorno do Rei",
-        autor: "J.R.R. Tolkien",
-        ano: 1955,
-        paginas: 416,
-        editora: "Allen & Unwin"
-    },
-    {
-        id: 4,
-        titulo: "O Hobbit",
-        autor: "J.R.R. Tolkien",
-        ano: 1937,
-        paginas: 310,
-        editora: "George Allen & Unwin"
-    },
-    {
-        id: 5,
-        titulo: "Silmarillion",
-        autor: "J.R.R. Tolkien",
-        ano: 1977,
-        paginas: 365,
-        editora: "George Allen & Unwin"
-    },
-    {
-        id: 6,
-        titulo: "Contos Inacabados",
-        autor: "J.R.R. Tolkien",
-        ano: 1980,
-        paginas: 472,
-        editora: "George Allen & Unwin"
-    },
-    {
-        id: 7,
-        titulo: "Os Filhos de Húrin",
-        autor: "J.R.R. Tolkien",
-        ano: 2007,
-        paginas: 313,
-        editora: "HarperCollins"
-    },
-    {
-        id: 8,
-        titulo: "Beren e Lúthien",
-        autor: "J.R.R. Tolkien",
-        ano: 2017,
-        paginas: 304,
-        editora: "HarperCollins"
-    },
-    {
-        id: 9,
-        titulo: "A Queda de Gondolin",
-        autor: "J.R.R. Tolkien",
-        ano: 2018,
-        paginas: 304,
-        editora: "HarperCollins"
-    },
-    {
-        id: 10,
-        titulo: "A História de Kullervo",
-        autor: "J.R.R. Tolkien",
-        ano: 2015,
-        paginas: 192,
-        editora: "HarperCollins"
-    },
-    {
-        id: 11,
-        titulo: "A Lenda de Sigurd e Gudrún",
-        autor: "J.R.R. Tolkien",
-        ano: 2009,
-        paginas: 384,
-        editora: "HarperCollins"
-    },
-    {
-        id: 12,
-        titulo: "A Balada de Aotrou e Itroun",
-        autor: "J.R.R. Tolkien",
-        ano: 2016,
-        paginas: 128,
-        editora: "HarperCollins"
-    },
-    {
-        id: 13,
-        titulo: "A Última Canção de Bilbo",
-        autor: "J.R.R. Tolkien",
-        ano: 1990,
-        paginas: 32,
-        editora: "HarperCollins"
-    },
+        "titulo": "O Senhor dos Anéis: O Retorno do Rei",
+        "preco": 39.90,
+        "ano": 1955,
+        "paginas": 416,
+        "editora": "Allen & Unwin"
+        },
+        {
+        "titulo": "O Hobbit",
+        "preco": 29.90,
+        "ano": 1937,
+        "paginas": 310,
+        "editora": "George Allen & Unwin"
+        },
+        {
+        "titulo": "Silmarillion",
+        "preco": 49.90,
+        "ano": 1977,
+        "paginas": 365,
+        "editora": "George Allen & Unwin"
+        },
+        {
+        "titulo": "Contos Inacabados",
+        "preco": 59.90,
+        "ano": 1980,
+        "paginas": 472,
+        "editora": "George Allen & Unwin"
+        },
+        {
+        "titulo": "Os Filhos de Húrin",
+        "preco": 39.90,
+        "ano": 2007,
+        "paginas": 313,
+        "editora": "HarperCollins"
+        },
+        {
+        "titulo": "Beren e Lúthien",
+        "preco": 34.90,
+        "ano": 2017,
+        "paginas": 304,
+        "editora": "HarperCollins"
+        },
+        {
+        "titulo": "A Queda de Gondolin",
+        "preco": 34.90,
+        "ano": 2018,
+        "paginas": 304,
+        "editora": "HarperCollins"
+        },
+        {
+        "titulo": "A História de Kullervo",
+        "preco": 29.90,
+        "ano": 2015,
+        "paginas": 192,
+        "editora": "HarperCollins"
+        },
+        {
+        "titulo": "A Lenda de Sigurd e Gudrún",
+        "preco": 44.90,
+        "ano": 2009,
+        "paginas": 384,
+        "editora": "HarperCollins"
+        },
+        {
+        "titulo": "A Balada de Aotrou e Itroun",
+        "preco": 24.90,
+        "ano": 2016,
+        "paginas": 128,
+        "editora": "HarperCollins"
+        },
+        {
+        "titulo": "A Última Canção de Bilbo",
+        "preco": 19.90,
+        "ano": 1990,
+        "paginas": 32,
+        "editora": "HarperCollins"
+        }
 
 // Localiza um livro pela ID
 function buscaLivro(id) {
