@@ -7,7 +7,7 @@ class LivroController {
       res.status(200).json(listaLivros);
     } catch (error) {
       res.status(500).json({
-        message: `${error.message} - Falha na requisição.`,
+        message: `${error.message} - Falha na requisição!`,
       });
     };
   };
@@ -16,12 +16,12 @@ class LivroController {
     try {
       const buscaLivro = await livroModel.findById(req.params.id);
       res.status(200).json({
-        message: "Livro localizado",
+        message: "Livro localizado com sucesso!",
         livro: buscaLivro,
       });
     } catch (error) {
       res.status(500).json({
-        message: `${error.message} - Falha ao buscar livro`,
+        message: `${error.message} - Falha ao buscar livro!`,
       });
     };
   };
@@ -30,12 +30,12 @@ class LivroController {
     try {
       const novoLivro = await livroModel.create(req.body);
       res.status(201).json({
-        message: "Livro criado com sucesso.",
+        message: "Livro criado com sucesso!",
         livro: novoLivro,
       });
     } catch (error) {
       res.status(500).json({
-        message: `${error.message} - Falha ao cadastrar livro`,
+        message: `${error.message} - Falha ao criar livro!`,
       });
     };
   };
@@ -44,12 +44,24 @@ class LivroController {
     try {
       await livroModel.findByIdAndUpdate(req.params.id, req.body);
       res.status(200).json({
-        message: "Livro atualizado",
-        livro: buscaLivro,
+        message: "Livro atualizado com sucesso!",
       });
     } catch (error) {
       res.status(500).json({
-        message: `${error.message} - Falha ao atualizar o livro`,
+        message: `${error.message} - Falha ao atualizar o livro!`,
+      });
+    };
+  };
+
+  static async excluirLivro(req, res) {
+    try {
+      await livroModel.findByIdAndDelete(req.params.id);
+      res.status(200).json({
+        message: "Livro excluído com sucesso!",
+      });
+    } catch (error) {
+      res.status(500).json({
+        message: `${error.message} - Falha na exclusão do livro!`,
       });
     };
   };
