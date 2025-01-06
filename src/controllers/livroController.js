@@ -34,6 +34,12 @@ class LivroController {
 
 		try {
 			const autorEncontrado = await autorModel.findById(novoLivro.autor);
+			if(!autorEncontrado){
+				res.status(404).send({
+					message: "Autor não encontrado"
+				});
+			};
+			
 			const livroCompleto = {
 				...novoLivro,
 				autor: { ...autorEncontrado._doc },
