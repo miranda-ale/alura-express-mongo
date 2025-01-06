@@ -1,6 +1,4 @@
-import mongoose from 'mongoose';
 import { autorModel } from '../models/AutorModel.js';
-
 
 class AutorController {
   static async listarAutores(req, res) {
@@ -8,13 +6,11 @@ class AutorController {
       const listaAutores = await autorModel.find({});
       res.status(200).send(listaAutores);
     } catch (error) {
-      res.status(500).send({
-        message: `${error.message} - Falha na requisição!`,
-      });
+      next(error);
     }
   }
 
-  static async listarAutorPorId(req, res) {
+  static async listarAutorPorId(req, res, next) {
     try {
       const resultadoAutor = await autorModel.findById(req.params.id);
 
@@ -29,19 +25,11 @@ class AutorController {
         });
       }
     } catch (error) {
-      if (error instanceof mongoose.Error.CastError) {
-        res.status(400).send({
-          message: 'Dados fornecidos incorretos',
-        });
-      } else {
-        res
-          .status(500)
-          .send({ message: `${error.message} - Erro interno do servidor!` });
-      }
+      next(error);
     }
   }
 
-  static async criarAutor(req, res) {
+  static async criarAutor(req, res, next) {
     try {
       const novoAutor = await autorModel.create(req.body);
       res.status(201).send({
@@ -49,35 +37,29 @@ class AutorController {
         autor: novoAutor,
       });
     } catch (error) {
-      res.status(500).send({
-        message: `${error.message} - Falha ao criar Autor!`,
-      });
+      next(error);
     }
   }
 
-  static async atualizarAutor(req, res) {
+  static async atualizarAutor(req, res, next) {
     try {
       await autorModel.findByIdAndUpdate(req.params.id, req.body);
       res.status(200).send({
         message: 'Autor atualizado com sucesso!',
       });
     } catch (error) {
-      res.status(500).send({
-        message: `${error.message} - Falha ao atualizar o Autor!`,
-      });
+      next(error);
     }
   }
 
-  static async excluirAutor(req, res) {
+  static async excluirAutor(req, res, next) {
     try {
       await autorModel.findByIdAndDelete(req.params.id);
       res.status(200).send({
         message: 'Autor excluído com sucesso!',
       });
     } catch (error) {
-      res.status(500).send({
-        message: `${error.message} - Falha na exclusão do Autor!`,
-      });
+      next(error);
     }
   }
 }
