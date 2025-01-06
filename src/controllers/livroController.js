@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { autorModel } from "../models/AutorModel.js";
 import livroModel from "../models/livroModel.js";
 
@@ -5,9 +6,9 @@ class LivroController {
   static async listarLivros(req, res) {
     try {
       const listaLivros = await livroModel.find({});
-      res.status(200).json(listaLivros);
+      res.status(200).send(listaLivros);
     } catch (error) {
-      res.status(500).json({
+      res.status(500).send({
         message: `${error.message} - Falha na requisição!`,
       });
     }
@@ -15,17 +16,38 @@ class LivroController {
 
   static async listarLivroPorId(req, res) {
     try {
-      const buscaLivro = await livroModel.findById(req.params.id);
-      res.status(200).json({
-        message: "Livro localizado com sucesso!",
-        livro: buscaLivro,
-      });
+      const resultadoLivro = await livroModel.findById(req.params.id);
+      if (resultadoLivro !== null) {
+        res
+        .status(200)
+        .send({
+          message: "Livro localizado com sucesso!",
+          livro: resultadoLivro,
+        });
+      } else {
+        res
+        .status(404)
+        .send({
+          message: "Livro não localizado!",
+        });
+      }
+      
     } catch (error) {
-      res.status(500).json({
-        message: `${error.message} - Falha ao buscar livro!`,
-      });
-    }
-  }
+      if(error instanceof mongoose.Error.CastError) {
+        res
+        .status(400)
+        .send({
+          message: "Dados fornecidos incorretos!",
+        });
+      } else {
+        res
+        .status(500)
+        .send({
+          message: `${error.message} - Erro interno do servidor!`,
+        });
+      };
+    };
+  };
 
   static async criarLivro(req, res) {
     const novoLivro = req.body;
@@ -37,12 +59,12 @@ class LivroController {
         autor: { ...autorEncontrado._doc },
       };
       const livroCriado = await livroModel.create(livroCompleto);
-      res.status(201).json({
+      res.status(201).send({
         message: "Livro criado com sucesso!",
         livro: livroCriado,
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(500).send({
         message: `${error.message} - Falha ao criar livro!`,
       });
     }
@@ -51,11 +73,11 @@ class LivroController {
   static async atualizarLivro(req, res) {
     try {
       await livroModel.findByIdAndUpdate(req.params.id, req.body);
-      res.status(200).json({
+      res.status(200).send({
         message: "Livro atualizado com sucesso!",
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(500).send({
         message: `${error.message} - Falha ao atualizar o livro!`,
       });
     }
@@ -64,11 +86,11 @@ class LivroController {
   static async excluirLivro(req, res) {
     try {
       await livroModel.findByIdAndDelete(req.params.id);
-      res.status(200).json({
+      res.status(200).send({
         message: "Livro excluído com sucesso!",
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(500).send({
         message: `${error.message} - Falha na exclusão do livro!`,
       });
     }
@@ -80,12 +102,12 @@ class LivroController {
       const livrosPorEditora = await livroModel.find({ editora: editora });
       res
       .status(200)
-      .json({
+      .send({
         message: `Livro(s) localizado(s)`,
         livro: [livrosPorEditora]
       });
     } catch (error) {
-      res.status(500).json({
+      res.status(500).send({
         message: `${error.message} - Falha na exclusão do livro!`,
       });
     };
