@@ -14,16 +14,14 @@ class LivroController {
 	static async listarLivroPorId(req, res, next) {
 		try {
 			const resultadoLivro = await livroModel.findById(req.params.id);
-			if (resultadoLivro !== null) {
+			if(resultadoLivro !== null) {
 				res.status(200).send({
-					message: "Livro localizado com sucesso!",
-					livro: resultadoLivro,
+				  message: 'Livro encontrado com sucesso!',
 				});
-			} else {
-				res.status(404).send({
-					message: "Livro não localizado!",
-				});
-			}
+			  } else {
+				next(new NaoEncontrado("Livro não localizado!"));
+			  };
+		
 		} catch (error) {
 			next(error);
 		}
@@ -34,12 +32,12 @@ class LivroController {
 
 		try {
 			const autorEncontrado = await autorModel.findById(novoLivro.autor);
-			if(!autorEncontrado){
+			if (!autorEncontrado) {
 				res.status(404).send({
-					message: "Autor não encontrado"
+					message: "Autor não encontrado",
 				});
-			};
-			
+			}
+
 			const livroCompleto = {
 				...novoLivro,
 				autor: { ...autorEncontrado._doc },
@@ -56,10 +54,14 @@ class LivroController {
 
 	static async atualizarLivro(req, res, next) {
 		try {
-			await livroModel.findByIdAndUpdate(req.params.id, req.body);
-			res.status(200).send({
-				message: "Livro atualizado com sucesso!",
-			});
+			const resultadoLivro = await livroModel.findByIdAndUpdate(req.params.id, req.body);
+			if(resultadoLivro !== null) {
+				res.status(200).send({
+				  message: 'Livro encontrado com sucesso!',
+				});
+			  } else {
+				next(new NaoEncontrado("Livro não localizado!"));
+			  };
 		} catch (error) {
 			next(error);
 		}
@@ -67,10 +69,14 @@ class LivroController {
 
 	static async excluirLivro(req, res, next) {
 		try {
-			await livroModel.findByIdAndDelete(req.params.id);
-			res.status(200).send({
-				message: "Livro excluído com sucesso!",
-			});
+			const resultadoLivro = await livroModel.findByIdAndDelete(req.params.id);
+			if(resultadoLivro !== null) {
+				res.status(200).send({
+				  message: 'Livro encontrado com sucesso!',
+				});
+			  } else {
+				next(new NaoEncontrado("Livro não localizado!"));
+			  };
 		} catch (error) {
 			next(error);
 		}

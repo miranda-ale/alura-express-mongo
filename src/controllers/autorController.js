@@ -1,3 +1,4 @@
+import NaoEncontrado from '../error/NaoEncontrado.js';
 import { autorModel } from '../models/AutorModel.js';
 
 class AutorController {
@@ -7,8 +8,8 @@ class AutorController {
       res.status(200).send(listaAutores);
     } catch (error) {
       next(error);
-    }
-  }
+    };
+  };
 
   static async listarAutorPorId(req, res, next) {
     try {
@@ -20,14 +21,12 @@ class AutorController {
           autor: resultadoAutor,
         });
       } else {
-        res.status(404).send({
-          message: 'Autor não localizado!',
-        });
+        next(new NaoEncontrado("Autor não localizado!"));
       }
     } catch (error) {
       next(error);
-    }
-  }
+    };
+  };
 
   static async criarAutor(req, res, next) {
     try {
@@ -38,30 +37,42 @@ class AutorController {
       });
     } catch (error) {
       next(error);
-    }
-  }
+    };
+  };
 
   static async atualizarAutor(req, res, next) {
     try {
-      await autorModel.findByIdAndUpdate(req.params.id, req.body);
-      res.status(200).send({
-        message: 'Autor atualizado com sucesso!',
-      });
+      const resultadoAtualizarAutor = await autorModel.findByIdAndUpdate(req.params.id, req.body);
+      
+      if(resultadoAtualizarAutor !== null) {
+        res.status(200).send({
+          message: 'Autor atualizado com sucesso!',
+        });
+      } else {
+        next(new NaoEncontrado("Autor não localizado!"));
+      };
+
     } catch (error) {
       next(error);
-    }
-  }
+    };
+  };
 
   static async excluirAutor(req, res, next) {
     try {
-      await autorModel.findByIdAndDelete(req.params.id);
-      res.status(200).send({
-        message: 'Autor excluído com sucesso!',
-      });
+      const resultadoExcluirAutor = await autorModel.findByIdAndDelete(req.params.id);
+
+      if(resultadoExcluirAutor !== null){
+        res.status(200).send({
+          message: 'Autor excluído com sucesso!',
+        });
+      } else {
+        next(new NaoEncontrado("Autor não localizado!"));
+      }
+
     } catch (error) {
       next(error);
-    }
-  }
-}
+    };
+  };
+};
 
 export default AutorController;
