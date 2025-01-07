@@ -1,5 +1,5 @@
-import livroModel from "../models/livroModel.js";
 import NaoEncontrado from "../error/NaoEncontrado.js";
+import { livroModel } from "../models/appModel.js";
 
 class LivroController {
 	static async listarLivros(req, res, next) {
@@ -17,15 +17,15 @@ class LivroController {
 			if (resultadoLivro !== null) {
 				res.status(200).send({
 					message: "Livro encontrado com sucesso!",
-					livro: resultadoLivro
+					livro: resultadoLivro,
 				});
 			} else {
 				next(new NaoEncontrado("Livro não localizado!"));
 			}
 		} catch (error) {
 			next(error);
-		};
-	};
+		}
+	}
 
 	static async criarLivro(req, res, next) {
 		try {
@@ -37,8 +37,8 @@ class LivroController {
 			});
 		} catch (error) {
 			next(error);
-		};
-	};
+		}
+	}
 
 	static async atualizarLivro(req, res, next) {
 		try {
@@ -55,8 +55,8 @@ class LivroController {
 			}
 		} catch (error) {
 			next(error);
-		};
-	};
+		}
+	}
 
 	static async excluirLivro(req, res, next) {
 		try {
@@ -70,8 +70,8 @@ class LivroController {
 			}
 		} catch (error) {
 			next(error);
-		};
-	};
+		}
+	}
 
 	static async listarLivrosPorEditora(req, res, next) {
 		const editora = req.query.editora;
@@ -83,8 +83,8 @@ class LivroController {
 			});
 		} catch (error) {
 			next(error);
-		};
-	};
-};
+		}
+	}
+}
 
 export default LivroController;
