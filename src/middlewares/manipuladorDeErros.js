@@ -15,7 +15,7 @@ function manipuladorDeErros(error, req, res, next) {
 		error.enviarResposta(res);
 	} else {
 		new ErroBase().enviarResposta(res);
-	};
+	}
 };
 
 export default manipuladorDeErros;
