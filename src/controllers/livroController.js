@@ -1,4 +1,5 @@
 import NaoEncontrado from "../error/NaoEncontrado.js";
+import manipulador404 from "../middlewares/manipulador404.js";
 import { autorModel, livroModel } from "../models/appModel.js";
 
 class LivroController {
@@ -77,14 +78,18 @@ class LivroController {
 		try {
 			const busca = await processaBusca(req.query)
 
-			const livrosResultado = await livroModel
-			.find(busca)
-			.populate("autor");
-
-			res.status(200).send({
-				message: `Livro(s) localizado(s)`,
-				livro: livrosResultado,
-			});
+			if(busca !== null) {
+				const livrosResultado = await livroModel
+				.find(busca)
+				.populate("autor");
+				
+				res.status(200).send({
+					message: `Livro(s) localizado(s)`,
+					livro: livrosResultado,
+				});
+			} else {
+				res.status(200).send([])
+			}
 
 		} catch (error) {
 			next(error);
@@ -96,7 +101,7 @@ class LivroController {
 async function processaBusca(parametros) {
 	const { editora,  titulo, minPaginas, maxPaginas, nomeAutor } = parametros;
 
-		const busca = {};
+		let busca = {};
 
 		if(editora) busca.editora = editora;
 		if(titulo) busca.titulo = { $regex: titulo, $options: "i"};
@@ -108,9 +113,12 @@ async function processaBusca(parametros) {
 			
 			const autor = await autorModel.findOne({ nome: nomeAutor });
 
-			const autorId = autor._id
-			busca.autor = {};
-			busca.autor = autorId;
+			if (autor !== null) {
+				busca.autor = autor._id;
+			} else {
+				busca = null;
+			}
+			
 		} 
 
 		return busca;
