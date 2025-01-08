@@ -2,10 +2,12 @@ import NaoEncontrado from "../error/NaoEncontrado.js";
 import { autorModel } from "../models/appModel.js";
 
 class AutorController {
-	static async listarAutores(req, res) {
+	static async listarAutores(req, res, next) {
 		try {
-			const listaAutores = await autorModel.find({});
-			res.status(200).send(listaAutores);
+			const listaAutores = autorModel.find({});
+			req.resultado = listaAutores;
+			next();
+
 		} catch (error) {
 			next(error);
 		}
